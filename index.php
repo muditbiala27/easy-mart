@@ -94,8 +94,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["product_id"])) {
           🛒 Cart (<span id="cart-count"><?= $cartCount; ?></span>)
         </a>
     </div>
-   
 
+  
     </div>
   </nav>
 
