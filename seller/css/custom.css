@@ -1,0 +1,62 @@
+
+@media only screen and (max-width: 767px) {
+    div#navbarSupportedContent {
+        position: absolute;
+        top: 56px;
+        background: #fff;
+        width: 100%;
+        left: 0;
+        padding: 15px;
+        z-index: 999;
+    }
+  }
+
+
+  .side-menu .nav-link {
+    font-size: 18px;
+    font-weight: 400;
+    text-align: left;
+    margin-right: 13px;
+    color: #000;
+    margin-bottom: 8px;
+    border-radius: 8px;
+}
+
+.menu-active {
+    background: #003366;
+    color: white !important;
+}
+
+.side-menu .nav-link:hover {
+    background: #003366;
+    color: white !important;
+}
+
+.orange-btn {
+    background: #FF6600;
+    color: #fff;
+    padding: 8px 22px;
+    text-decoration: none;
+    border-radius: 7px;
+    transition: all .3sease-in-out !important;
+    display: inline-block;
+}
+
+.blue-btn {
+    background: #003366;
+    color: #fff;
+    padding: 8px 22px;
+    text-decoration: none;
+    border-radius: 7px;
+    transition: all .3sease-in-out !important;
+    display: inline-block;
+}
+
+.pro{
+    overflow: auto;
+    z-index: 9999 !important;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 10px;
+    background-color: #f8f9fa;
+}

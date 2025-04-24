@@ -21,6 +21,24 @@ if (isset($_SESSION['user_id']) && !isset($_SESSION['user_name'])) {
         $_SESSION['user_name'] = $row['name']; // Set the name in session
     }
 }
+
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["product_id"])) {
+    $product_id = $_POST["product_id"];
+
+    if (!isset($_SESSION["cart"])) {
+        $_SESSION["cart"] = [];
+    }
+
+    if (!array_key_exists($product_id, $_SESSION["cart"])) {
+        $_SESSION["cart"][$product_id] = 1;
+    }
+
+    echo json_encode([
+        "success" => true,
+        "cart_count" => count($_SESSION["cart"]),
+    ]);
+    exit;
+}
 ?>
 
 
@@ -33,39 +51,54 @@ if (isset($_SESSION['user_id']) && !isset($_SESSION['user_name'])) {
     <link href="css/custom.css" rel="stylesheet">
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg bg-primary-subtle ">
-  <div class="container">
-    <a class="navbar-brand text-primary" href="index.html"> <strong>LOGO</strong> </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="index.php">Home</a>
-        </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="#">Products</a>
-        </li> -->
+    <nav class="navbar navbar-expand-lg bg-primary-subtle py-2">
+    <div class="container">
+      <!-- Logo -->
+      <a class="navbar-brand logo text-uppercase text-white fs-3" href="">
+      <img src="images/easymart.png" alt="Logo" class="img-fluid" style="height: 70px; width:180px;">
+    </a>
 
-      </ul>
+
+      <!-- Search Bar -->
+      <form class="d-flex ms-3 flex-grow-1" style="max-width: 300px;" action="search.php" method="GET">
+        <input class="form-control border-0 shadow-sm rounded-pill px-3" type="search" placeholder="Search..." aria-label="Search" name="query">
+      </form>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active fw-semibold" aria-current="page" href="index.php">Home</a>
+          </li>
+        </ul>
+      </div>
+      <div class="d-flex ms-3">
+        <?php if (!empty($_SESSION['user_name'])) { ?>
+          <a href="<?= htmlspecialchars($dashboard); ?>" class="text-primary fw-bold me-3 text-decoration-none">
+            Welcome, <?= htmlspecialchars($_SESSION['user_name'] ?? 'Guest'); ?>!
+          </a>
+          <a class="btn btn-danger btn-sm rounded-pill px-3" href="logout.php" role="button">Logout</a>
+        <?php } else { ?>
+          <a class="btn btn-primary btn-sm rounded-pill px-3 me-2" href="login.php" role="button">Login</a>
+          <a class="btn btn-secondary btn-sm rounded-pill px-3" href="register.php" role="button">Sign Up</a>
+        <?php } ?>
+      </div>
+      <div class="ms-3">
+        <?php
+        $cartCount = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
+        ?>
+        <a href="cart.php" class="btn btn-warning btn-sm rounded-pill px-3">
+          🛒 Cart (<span id="cart-count"><?= $cartCount; ?></span>)
+        </a>
+    </div>
+
 
     </div>
-    <div class="d-flex ms-3">
-      <?php if (!empty($_SESSION['user_name'])) { ?>
-        <a href="<?= htmlspecialchars($dashboard); ?>" class="text-primary fw-bold me-3 text-decoration-none">
-            Welcome, <?= htmlspecialchars($_SESSION['user_name'] ?? 'Guest'); ?>!
-        </a>
-          <a class="btn btn-danger" href="logout.php" role="button">Logout</a>
-      <?php } else { ?>
-          <a class="btn btn-primary me-2" href="login.php" role="button">Login</a>
-          <a class="btn btn-secondary" href="register.php" role="button">Sign Up</a>
-      <?php } ?>
-  </div>
+  </nav>
 
-
-
-</nav>
 
 
 <section>
@@ -78,8 +111,8 @@ if (isset($_SESSION['user_id']) && !isset($_SESSION['user_name'])) {
             <div class="row justify-content-center">
               <div class="col-lg-6">
                 <div class="text-center">
-                  <h1 class="text-white">Lorem Ipsum</h1>
-                  <p class="text-white">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
+                  <h1 class="text-white">Daily Needs</h1>
+                  <p class="text-white">Daawat Rozana Super Basmati Rice 5Kg| For Everyday Consumption| Cooked Grain Upto 13mm*| Naturally Aged ... LDF Daily Needs Dry Fruits Combo Pack 1Kg | American ...</p>
                   <a class="btn btn-primary me-2" href="#" role="button">view all products</a>
                 </div>
               </div>
@@ -89,14 +122,14 @@ if (isset($_SESSION['user_id']) && !isset($_SESSION['user_name'])) {
 
       </div>
       <div class="carousel-item">
-        <div class="sliderss" style="background-image: url('./images/slider-2.jpg');">
+        <div class="sliderss" style="background-image: url('./images/sliderrrr-2.jpg');">
           <div class="overlay"></div>
           <div class="container py-5 position-relative">
             <div class="row justify-content-center">
               <div class="col-lg-6">
                 <div class="text-center">
-                  <h1 class="text-white">Lorem Ipsum</h1>
-                  <p class="text-white">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
+                  <h1 class="text-white">Budget Friendly </h1>
+                  <p class="text-white">I enjoy recreating high-end items that are both budget-friendly and functional. On my channel, you will find anything from thrift flips, reproductions, ...</p>
                   <a class="btn btn-primary me-2" href="#" role="button">view all products</a>
                 </div>
               </div>
@@ -105,14 +138,14 @@ if (isset($_SESSION['user_id']) && !isset($_SESSION['user_name'])) {
         </div>
       </div>
       <div class="carousel-item">
-        <div class="sliderss" style="background-image: url('./images/slider-3.jpg');">
+        <div class="sliderss" style="background-image: url('./images/sliderrrrr-3.jpg');">
           <div class="overlay"></div>
           <div class="container py-5 position-relative">
             <div class="row justify-content-center">
               <div class="col-lg-6">
                 <div class="text-center">
-                  <h1 class="text-white">Lorem Ipsum</h1>
-                  <p class="text-white">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
+                  <h1 class="text-white">BestSellers In Shoes</h1>
+                  <p class="text-white">Discover our Best Selling collection. Shop stylish, comfortable, and high-quality options designed for every occasion. Explore new arrivals and find your ...</p>
                   <a class="btn btn-primary me-2" href="#" role="button">view all products</a>
                 </div>
               </div>
@@ -136,17 +169,29 @@ if (isset($_SESSION['user_id']) && !isset($_SESSION['user_name'])) {
   <div class="container py-5">
     <div class="row">
       <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
-         <img src="images/offer-1.jpg" width="100%" class="img-fluid rounded-2 " alt="...">
+        <img src="images/offer-1.jpg" class="img-fluid rounded-2 zoom-effect" alt="...">
       </div>
       <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
-        <img src="images/offer-2.jpg" width="100%" class="img-fluid rounded-2" alt="...">
-     </div>
-     <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
-      <img src="images/offer-3.jpg" width="100%" class="img-fluid rounded-2" alt="...">
-   </div>
-       </div>
-       </div>
+        <img src="images/offer-2.jpg" class="img-fluid rounded-2 zoom-effect" alt="...">
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+        <img src="images/offer-3.jpg" class="img-fluid rounded-2 zoom-effect" alt="...">
+      </div>
+    </div>
+  </div>
 </section>
+
+<style>
+  .zoom-effect {
+    width: 100%;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .zoom-effect:hover {
+    transform: scale(0.95); /* Zoom out slightly */
+  }
+</style>
+
 
 <section class="Products py-5">
   <div class="container">
@@ -238,9 +283,9 @@ if (isset($_SESSION['user_id']) && !isset($_SESSION['user_name'])) {
     <div class="container">
        <div class="row ">
           <div class="col-lg-3">
-             <a class="navbar-brand logo text-uppercase text-white fs-3" href="">
-          <strong>LOGO</strong>
-             </a>
+            <a class="navbar-brand logo text-uppercase text-white fs-3" href="index.php">
+            <img src="images/easymart.png" alt="Logo" class="img-fluid" style="height: 70px; width:180px;">
+          </a>
              <p class="text-white mt-2 mb-0">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
              </p>
 
@@ -301,6 +346,30 @@ $(document).ready(function(){
         });
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".add-to-cart").forEach((button) => {
+    button.addEventListener("click", function () {
+      let productId = this.getAttribute("data-id");
+
+      fetch("add_to_cart.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: "product_id=" + productId,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            document.getElementById("cart-count").innerText = data.cart_count;
+            this.outerHTML = `<a href="cart.php" class="btn btn-success">View Cart</a>`;
+          }
+        })
+        .catch((error) => console.error("Error:", error));
+    });
+  });
+});
+
+
 </script>
 
   </body>

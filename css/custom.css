@@ -1,0 +1,95 @@
+
+@media only screen and (max-width: 767px) {
+    div#navbarSupportedContent {
+        position: absolute;
+        top: 56px;
+        background: #fff;
+        width: 100%;
+        left: 0;
+        padding: 15px;
+        z-index: 999;
+    }
+  }
+
+  .sliderss{
+    background-position: center;
+    background-size: cover;
+    padding: 90px 0;
+    position: relative;
+  }
+  .overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+  }
+
+  .line {
+    width: 69px;
+    height: 2px;
+    background: #0d6efd;
+    border-radius: 15px;
+}
+
+.offer{
+  background-position: center;
+  background-size: cover;
+  padding: 120px 0;
+  position: relative;
+}
+
+.footer {
+
+  background-position: 50% !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-color: #003366 !important;
+  padding: 80px 0;
+}
+.footer p {
+  font-size: 18px;
+  line-height: 2;
+  font-weight: 300;
+  color: #ffffff !important;
+  letter-spacing: 0.5px;
+}
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+.footer-item li {
+  padding-bottom: 8px;
+}
+.top-header ul {
+  display: flex
+;
+  list-style: none;
+  align-items: center;
+  margin-bottom: 0;
+  padding-inline-start: 0;
+}
+a.social-media {
+  background: #C85000;
+  padding: 2px 7px;
+  border-radius: 7px;
+  color: #fff;
+}
+.top-header ul li {
+  color: #fff;
+  margin-right: 16px;
+}
+footer {
+  background: #042e58;
+  border-top: solid 2px #013f7d;
+  padding: 10px 0;
+}
+
+.footer .footer-link li a {
+  font-size: 18px;
+  font-weight: 300;
+  color: #ffffff !important;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+}
