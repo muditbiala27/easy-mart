@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_product'])) {
 
 if (isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
-    $userQuery = "SELECT name FROM users WHERE id = ?";
+    $userQuery = "SELECT name FROM college_users WHERE id = ?";
     $stmt = $conn->prepare($userQuery);
     $stmt->bind_param("i", $userId);
     $stmt->execute();

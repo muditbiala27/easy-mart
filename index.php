@@ -12,7 +12,7 @@ $products = $result->fetch_all(MYSQLI_ASSOC); // Fetch all products
 
 if (isset($_SESSION['user_id']) && !isset($_SESSION['user_name'])) {
     $user_id = $_SESSION['user_id'];
-    $stmt = $conn->prepare("SELECT name FROM users WHERE id = ?");
+    $stmt = $conn->prepare("SELECT name FROM college_users WHERE id = ?");
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
